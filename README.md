@@ -1,6 +1,7 @@
-git clone https://github.com/joedrago/seed.git
-cd seed
-make clean all run
+
+    git clone https://github.com/joedrago/seed.git
+    cd seed
+    make clean all run
 
 should output:
 
