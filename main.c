@@ -6,13 +6,15 @@ void chew(uint32_t seed, unsigned char bytes[16]);
 
 int main(int argc, char **argv)
 {
-    if(argc == 4)
+    if(argc == 5)
     {
         // error checking is for the WEAK
         uint32_t seed = atoi(argv[1]);
         uint32_t size = atoi(argv[2]);
         uint32_t sizeLeft = size;
-        char *filename = argv[3];
+        uint32_t repeat = atoi(argv[3]);
+        uint32_t chewTime = 0;
+        char *filename = argv[4];
         char buffer[16];
         FILE *f;
 
@@ -29,7 +31,11 @@ int main(int argc, char **argv)
         while(sizeLeft > 0)
         {
             uint32_t amtToWrite = (sizeLeft > 16) ? 16 : sizeLeft;
-            chew(seed, buffer);
+            if(((++chewTime) % repeat) == 0)
+            {
+                chew(seed, buffer);
+                chewTime = 0;
+            }
             if(fwrite(buffer, amtToWrite, 1, f) != 1)
             {
                 fclose(f);
