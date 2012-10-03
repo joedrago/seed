@@ -1,13 +1,15 @@
+SRCS=main.o MurmurHash3.o generateData.o
+
 all: seed
 
-.c.o:
-	gcc $(CFLAGS) -c $<
+.cpp.o:
+	gcc $(CPPFLAGS) -c $<
 
-seed: main.o
-	gcc -o seed main.o
+seed: $(SRCS)
+	gcc -o seed $(SRCS) -lstdc++
 
 clean:
-	rm -rf seed main.o data1 data2 compress*
+	rm -rf seed $(SRCS) data1 data2 compress*
 
 run:
 	@echo Generating into data1 and data2 with the same seeds...
